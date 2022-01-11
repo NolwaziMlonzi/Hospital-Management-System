@@ -1,0 +1,165 @@
+﻿
+@{
+    ViewData["Title"] = "_sideMenuBar";
+}
+
+<div id="app" :class="[{'collapsed' : collapsed}]">
+    <div id="mySidenav" class="sidenav bg-primary">
+        <span class="closebtn" style="font-size: 30px; cursor: pointer; margin-left: 15px; " @@click="collapse ? openNav() : closeNav()">&#9776;</span>
+        <div class="links" id="links">
+            @*<a href="#">Patients</a>*@
+            
+            <ul class="navbar-nav me-auto">
+                <li class="nav-item">
+                    <div class="dropdown-divider"></div>
+                    <a asp-area="" asp-controller="Patient" asp-action="Index">Patients</a>
+                    <div class="dropdown-divider"></div>
+                </li>
+                
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Doctors</a>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="#">Internal</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#">External</a>
+                    </div>
+                </li>
+
+                <li class="nav-item">
+                    <div class="dropdown-divider"></div>
+                    <a asp-area="" asp-controller="Appointment" asp-action="Index">Appointments</a>
+                </li>
+
+                <li class="nav-item">
+                    <div class="dropdown-divider"></div>
+                    <a asp-area="" asp-controller="Report" asp-action="Index">Reports</a>
+                    <div class="dropdown-divider"></div>
+                </li>
+            </ul>
+
+
+
+
+        </div>
+    </div>
+
+    @*<div id="main">
+            <h2>Graphs Unavailable for Visualization</h2>
+            <p>No Data to Display!.</p>
+
+        </div>*@
+
+</div>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
+<script>
+    let app = new Vue({
+        el: '#app',
+        data: {
+            message: `Vue in the works!`
+            ,collapse:true
+            , data:""
+    },
+        methods:
+        {
+            openNav: function openNav()
+            {
+                document.getElementById("mySidenav").style.width = "200px";
+                this.showLinks();
+            }
+            ,showLinks: function showLinks() {
+                document.getElementById("links").style.display = "block";
+                this.collapse = false;
+            }
+            , closeNav: function closeNav()
+            {
+                document.getElementById("mySidenav").style.width = "60px";
+                document.getElementById("links").style.display = "none";
+                this.collapse = true;
+            }
+        }
+    })
+</script>
+<style>
+
+    body {
+        font-family: "Lato", sans-serif;
+    }
+
+    .sidenav {
+        left: 0;
+        background-color: rgb(26, 26, 26);
+        overflow-x: hidden;
+        transition: 0.5s;
+        height: 79.9%;
+        width: 60px;
+        position: fixed;
+        z-index: 1;
+        top: 60px;
+    }
+
+        .sidenav .links {
+            display: none;
+            position: relative;
+            top: 3em;
+        }
+
+        .sidenav a {
+            padding: 10px 8px 10px 32px !important;
+            text-decoration: none;
+            font-size: 15px;
+            color: #818181;
+            display: block;
+            transition: 0.3s;
+/*            border-bottom: 1px solid #2222224f;
+*/        }
+
+            .sidenav a:hover {
+                color: #f1f1f1;
+            }
+
+        .sidenav .closebtn {
+            position: absolute;
+            top: 0;
+            font-size: 36px;
+            margin-left: 15px;
+            color: #fff;
+        }
+
+    #main {
+        transition: margin-left .5s;
+        padding: 16px;
+    }
+
+    @@media screen and (max-height: 450px) {
+        .sidenav {
+            padding-top: 15px;
+        }
+
+            .sidenav a {
+                font-size: 18px;
+            }
+    }
+
+    .dropList {
+        right: 31px;
+        position: relative;
+        width: 97px;
+        border-bottom: 1px solid #2222224f;
+    }
+
+    .service:hover + .drop {
+        display: block;
+    }
+
+    .drop:hover {
+        display: block;
+    }
+
+    .dropdown-menu {
+        position: absolute !important;
+        width: 100%;
+        box-shadow: -2px 1px 13px 4px #111;
+        border: none;
+    }
+
+</style>
